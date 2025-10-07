@@ -1,0 +1,55 @@
+Implementation of  DHCP network architecture as part of my SBI topology, featuring two routers (R1 & R2) configured for redundancy and three PCs receiving dynamic IP assignments.
+
+ 🔹 R1 – Configured as the primary DHCP server
+ 🔹 R2 – Configured as the redundant (secondary) DHCP server
+ 🔹 PC1&  PC2– Automatically received IP addresses via DHCP
+• DHCP Pool: SBI NETWORK
+• Network Address assigned
+• Default Gateway: Used to route packets destined for external networks. When a device (like a PC) receives an IP address from DHCP, the default gateway tells it where to send traffic outside the local subnet.
+• DNS Servers: Primary and Secondary address are taken
+
+What is DHCP?
+DHCP stands for Dynamic Host Configuration Protocol.
+It is a network protocol used to automatically assign IP addresses and other network configuration parameters to devices (like PCs, laptops, phones) so they can communicate on a network.
+Without DHCP, you would have to manually assign IP addresses to every device — which is error-prone and inefficient, especially in large networks.
+✅ Key Points:
+DHCP automates IP address assignment.
+It also provides other details like:
+Subnet mask 
+Default gateway 
+DNS server addresses 
+Makes network management easier and scalable.
+
+⚙️ How DHCP Works (Step by Step)
+When a device (like a PC) connects to the network and needs an IP address, DHCP works using a four-step process called DORA:
+1️. DHCP Discover
+The client (PC) sends a broadcast message to find a DHCP server.
+This message is called DHCP DISCOVER.
+2️. DHCP Offer
+The DHCP server receives the discover message and responds with a DHCP OFFER.
+This offer contains:
+IP address the client can use
+Subnet mask
+Gateway
+Lease time (how long the IP is valid)
+3️. DHCP Request
+The client receives one or more offers and chooses one.
+It then sends a DHCP REQUEST to the chosen server, saying:
+ “Yes, I want this IP address.”
+4️. DHCP Acknowledgment
+The DHCP server sends a DHCP ACK (acknowledgment) confirming the lease.
+Now the client can use the IP address and communicate on the network.
+
+Configuration on Router R1
+#Configure terminal
+#hostname DHCP
+#ip dhcp-pool SBI
+#network 192.168.1.0 255.255.255.0
+#default-router 192.168.1.100
+#dns-server 192.168.1.101 192.168.1.102
+#End
+To check the configuration
+#sh running-config | s dhcp
+#sh ip dhcp binding
+To auto assign Ip configuration on Pc
+#ip dhcp
